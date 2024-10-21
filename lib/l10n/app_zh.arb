@@ -1,0 +1,15 @@
+{
+  "appTitle": "DNS 速度测试",
+  "dnsTest": "测试",
+  "about": "关于",
+  "noProvidersFound": "未找到 DNS 提供商。",
+  "copyToClipboard": "已复制到剪贴板",
+  "averageLatency": "平均延迟",
+  "maxLatency": "最大延迟",
+  "minLatency": "最小延迟",
+  "region": "地区",
+  "webClientLimitationMessage": "网页版仅支持 DoH 测试。请下载客户端以获取完整功能。",
+  "testAllServers": "测试所有服务器",
+  "latency": "延迟",
+  "language": "语言"
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Google",
+    "servers": [
+      {
+        "type": "ipv4",
+        "address": "8.8.8.8"
+      },
+      {
+        "type": "ipv4",
+        "address": "8.8.4.4"
+      },
+      {
+        "type": "ipv6",
+        "address": "2001:4860:4860::8888"
+      },
+      {
+        "type": "ipv6",
+        "address": "2001:4860:4860::8844"
+      },
+      {
+        "type": "doh",
+        "address": "https://dns.google/dns-query"
+      }
+    ],
+    "region": "auto"
+  },
+  {
+    "name": "Cloudflare",
+    "servers": [
+      {
+        "type": "ipv4",
+        "address": "1.1.1.1"
+      },
+      {
+        "type": "ipv4",
+        "address": "1.0.0.1"
+      },
+      {
+        "type": "ipv6",
+        "address": "2606:4700:4700::1111"
+      },
+      {
+        "type": "ipv6",
+        "address": "2606:4700:4700::1001"
+      },
+      {
+        "type": "doh",
+        "address": "https://cloudflare-dns.com/dns-query"
+      }
+    ],
+    "region": "auto"
+  },
+  {
+    "name": "Quad9",
+    "servers": [
+      {
+        "type": "ipv4",
+        "address": "9.9.9.9"
+      },
+      {
+        "type": "ipv6",
+        "address": "2620:fe::fe"
+      },
+      {
+        "type": "doh",
+        "address": "https://dns.quad9.net/dns-query"
+      }
+    ],
+    "region": "auto"
+  }
+]

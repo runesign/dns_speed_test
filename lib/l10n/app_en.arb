@@ -1,0 +1,15 @@
+{
+  "appTitle": "DNS Speed Test",
+  "dnsTest": "Test",
+  "about": "About",
+  "noProvidersFound": "No DNS providers found.",
+  "copyToClipboard": "Copied to clipboard",
+  "averageLatency": "Average Latency",
+  "maxLatency": "Max Latency",
+  "minLatency": "Min Latency",
+  "region": "Region",
+  "webClientLimitationMessage": "Web only supports DoH testing. Please download the client for full features.",
+  "testAllServers": "Test All Servers",
+  "latency": "Latency",
+  "language": "language"
+}
