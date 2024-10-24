@@ -16,6 +16,7 @@ void main() {
 
     // 检查语言按钮是否存在
     expect(find.byIcon(Icons.language), findsOneWidget);
+
   });
 
 }
