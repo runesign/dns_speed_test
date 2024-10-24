@@ -1,4 +1,4 @@
-name: Flutter CI/CD
+name: Flutter CI
 
 on:
   push:
@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - main
-  release:
-    types: [published]
 
 jobs:
   build:
@@ -16,23 +14,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            platform: linux
-          - os: windows-latest
-            platform: windows
-          - os: ubuntu-latest
-            platform: web
 
     steps:
-      - name: Checkout repository
+      - name: Clone repository
         uses: actions/checkout@v4
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: 3.24.3
 
       - name: Install dependencies
         run: flutter pub get
@@ -40,53 +30,31 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      - name: Build for ${{ matrix.platform }}
-        if: matrix.platform != 'web'
-        run: flutter build ${{ matrix.platform }}
-
-      - name: Build for web
-        if: matrix.platform == 'web'
+      - name: Build for Web
+        if: matrix.os == 'ubuntu-latest'
         run: flutter build web
 
-      - name: Upload build artifacts
-        if: github.event_name == 'release' && github.event.action == 'published'
-        uses: actions/upload-artifact@v3
-        with:
-          name: flutter-build-${{ matrix.platform }}
-          path: build/${{ matrix.platform }}
+      - name: Build for Windows
+        if: matrix.os == 'windows-latest'
+        run: flutter build windows
 
-  publish:
-    runs-on: ubuntu-latest
+      - name: Build for Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          flutter build linux
+
+  release:
     needs: build
-    if: github.event_name == 'release' && github.event.action == 'published'
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: flutter-build-linux
-          path: build/linux
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: flutter-build-windows
-          path: build/windows
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: flutter-build-web
-          path: build/web
-
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/linux/**,build/windows/**,build/web/**"
-          token: ${{ secrets.GHP }}
-          tag: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: "Automated release for tag ${{ github.ref_name }}"
+          files: |
+            build/web/**/*
+            build/windows/runner/Release/*.exe
+            build/linux/x64/release/bundle/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHP }}
