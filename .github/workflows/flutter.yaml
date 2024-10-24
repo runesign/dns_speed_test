@@ -49,6 +49,18 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a v1.1.0 -m "Release v1.1.0"
+          git push origin v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHP }}
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -57,4 +69,4 @@ jobs:
             build/windows/runner/Release/*.exe
             build/linux/x64/release/bundle/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GHP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
