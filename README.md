@@ -1,5 +1,5 @@
 # DNS 测速工具
-![2024-10-25-081014_hyprshot](https://github.com/user-attachments/assets/851ea78a-9827-46a5-bb52-be4c93ddd7e3)
+![2024-10-25-081318_hyprshot](https://github.com/user-attachments/assets/a022ed90-63d1-49ea-a718-fa8b888f184b)
 
 这是一个基于 Flutter 开发的 DNS 测速应用程序，支持ipv4/6,DoH支持中英文双语界面。
 
